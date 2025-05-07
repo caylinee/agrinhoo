@@ -10,7 +10,7 @@ body {
   /* Cabeçalho */
   header {
     background-color: #8d471f;
-    color: white;
+    color: rgb(92, 61, 61);
     padding: 2rem 1rem;
     text-align: center;
   }
