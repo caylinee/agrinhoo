@@ -24,6 +24,18 @@
     header h1 {
       margin: 0;
       font-size: 2.5rem;
+      animation: slideDown 1s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     nav {
@@ -37,6 +49,14 @@
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
+      display: inline-block;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    nav a:hover {
+      transform: scale(1.1);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
     }
 
     .container {
@@ -47,6 +67,14 @@
 
     .section {
       margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section h2 {
@@ -58,6 +86,20 @@
       line-height: 1.6;
     }
 
+    #atividades ul li {
+      margin-bottom: 0.5rem;
+      padding-left: 0;
+      list-style-position: inside;
+      transition: all 0.3s ease;
+      transform-origin: left;
+    }
+
+    #atividades ul li:hover {
+      transform: translateX(10px);
+      color: #2c6e3c;
+      font-weight: bold;
+    }
+
     .image-box {
       text-align: center;
       margin-top: 2rem;
@@ -67,6 +109,13 @@
       max-width: 100%;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.5s ease;
+      transform: scale(0.95);
+    }
+
+    .image-box img:hover {
+      transform: scale(1);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
 
     footer {
@@ -75,6 +124,12 @@
       text-align: center;
       padding: 1rem;
       margin-top: 2rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -100,7 +155,7 @@
     <section id="atividades" class="section">
       <h2>Atividades Desenvolvidas</h2>
       <ul>
-        <li>Feira de produtos locais: “Do Campo à Mesa”.</li>
+        <li>Feira de produtos locais: "Do Campo à Mesa".</li>
         <li>Entrevistas com agricultores e comerciantes urbanos.</li>
         <li>Oficinas de culinária e sustentabilidade.</li>
         <li>Exposição de artes com materiais recicláveis.</li>
@@ -110,7 +165,7 @@
     <section id="galeria" class="section">
       <h2>Galeria de Imagens</h2>
       <div class="image-box">
-        <img src="https://via.placeholder.com/800x400.png?text=Campo+e+Cidade&quot; alt="Conexão do Campo e Cidade">
+        <img src="https://via.placeholder.com/800x400.png?text=Campo+e+Cidade" alt="Conexão do Campo e Cidade">
       </div>
     </section>
 
@@ -120,5 +175,22 @@
     <p>&copy; 2025 Projeto Agrinho – Todos os direitos reservados.</p>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
 </body>
 </html>
